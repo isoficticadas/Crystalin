@@ -5,15 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Crystalin</title>
-  <link rel="icon" href="img/acini.png" type="image/x-icon" />
+  <link rel="icon" href="img/acini.webp" type="image/x-icon" />
   <link href="/css/style.css" rel="stylesheet" />
   <link href="/css/font.css" rel="stylesheet" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
-    rel="stylesheet">
+  <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script> -->
 </head>
 
 <body>
@@ -28,7 +23,7 @@
         </div>
         <div class="header__image">
 
-          <img src="img/prod2var-head.png" alt="" class="header__img">
+          <img src="img/prod2var-head.webp" alt="" class="header__img">
         </div>
       </div>
     </div>
@@ -45,7 +40,7 @@
           </div>
           <div class="header__image">
 
-            <img src="img/prod2var-head.png" alt="" class="header__img">
+            <img src="img/prod2var-head.webp" alt="" class="header__img">
           </div>
         </div>
         <div class="header__form form-block">
@@ -68,16 +63,16 @@
             </div>
             <div class="form-block__labels">
               <label for="name2" class="form-block__label">
-                <input id="name2" type="text" name="name2" class="form-block__input" placeholder="Nombre"></label>
+                <input id="name2" type="text" name="name" class="form-block__input" placeholder="Nombre"></label>
               <label for="phone2" class="form-block__label">
-                <input id="phone2" type="tel" name="phone2" class="form-block__input"
+                <input id="phone2" type="tel" name="phone" class="form-block__input"
                   placeholder="Número de teléfono"></label>
             </div>
             <button class="form-block__btn" type="submit">Pedir</button>
           </form>
           <div class="form-block__timer">
-            <p class="days">dias restantes</p>
-          <div class="timer">
+            <!-- <p class="days">dias restantes</p>
+            <div class="timer">
             <div class="time-container">
               <span class="hour">
                 <span class="num hour0">-</span>
@@ -101,7 +96,7 @@
               </span>
               <span class="time-text">segundos</span>
             </div>
-          </div>
+            </div> -->
         </div>
         </div>
       </div>
@@ -125,7 +120,7 @@
             especiales para mantener la salud ocular y prevenir la ceguera.</p>
         </div>
         <div class="section1__block">
-          <img src="img/sec1.jpg" alt="" class="section1__img">
+          <img src="img/sec1.webp" alt="" class="section1__img">
         </div>
       </div>
     </div>
@@ -155,7 +150,7 @@
           </div>
         </div>
         <div class="section3__right">
-          <img src="img/eye.png" alt="" class="section3__img">
+          <img src="img/eye.webp" alt="" class="section3__img">
         </div>
       </div>
     </div>
@@ -167,7 +162,7 @@
       <div class="section4__wrap">
         <div class="section4__item">
           <div class="section4__photo">
-            <img src="/img/ingred1.png" alt="" class="section4__img">
+            <img src="/img/ingred1.webp" alt="" class="section4__img">
           </div>
           <div class="section4__info">
             <p class="section4__name">Arándano en polvo</p>
@@ -182,7 +177,7 @@
         </div>
         <div class="section4__item">
           <div class="section4__photo">
-            <img src="/img/ingred2.png" alt="" class="section4__img">
+            <img src="/img/ingred2.webp" alt="" class="section4__img">
           </div>
           <div class="section4__info">
             <p class="section4__name">Quercetina</p>
@@ -194,7 +189,7 @@
         </div>
         <div class="section4__item">
           <div class="section4__photo">
-            <img src="/img/ingred3.png" alt="" class="section4__img">
+            <img src="/img/ingred3.webp" alt="" class="section4__img">
           </div>
           <div class="section4__info">
             <p class="section4__name">Luteína y zeaxantina</p>
@@ -207,7 +202,7 @@
         </div>
         <div class="section4__item">
           <div class="section4__photo">
-            <img src="/img/ingred4.png" alt="" class="section4__img">
+            <img src="/img/ingred4.webp" alt="" class="section4__img">
           </div>
           <div class="section4__info">
             <p class="section4__name">Vitamina C y vitamina E</p>
@@ -224,7 +219,7 @@
     <div class="container">
       <h2 class="section5__title title">MODO DE USO</h2>
       <div class="section5__wrap">
-        <img src="img/capsula.png" alt="" class="section5__img">
+        <img src="img/capsula.webp" alt="" class="section5__img">
         <div class="section5__description">
           <p class="section5__text">Tome 2 cápsulas al día con abundante agua.</p>
           <p class="section5__text">Para obtener mejores resultados, toma las cápsulas por la mañana y por
@@ -487,7 +482,7 @@
     }
   </style>
   <div class="feedback">
-    <img src="img/form-ico.png" alt="" />
+    <img src="img/form-ico.webp" alt="" />
   </div>
   <div class="popup-window" style="display: none">
     <div class="close-popup"></div>
@@ -499,111 +494,11 @@
       <button type="submit">DEJAR UNA SOLICITUD</button>
     </form>
   </div>
-  <script>
-    $(document).ready(function () {
-      $(".feedback").click(function () {
-        $(".popup-window").show();
-      });
-      $(".close-popup").click(function () {
-        $(".popup-window").hide();
-      });
-
-      function handleFormSubmit(formId, nameInputId, phoneInputId) {
-        $(formId).submit(function (event) {
-          event.preventDefault();
-          const name = $(nameInputId).val().trim();
-          const phone = $(phoneInputId).val().trim();
-          const namePattern = /^[A-Za-z\s]+$/;
-          const phonePattern = /^\+593\d{9}$/;
-
-          if (!name || !namePattern.test(name)) {
-            alert(
-              "Por favor, ingrese un nombre válido. Solo se permiten letras y espacios."
-            );
-            $(nameInputId).focus();
-            return false;
-          }
-
-          if (!phonePattern.test(phone)) {
-            alert(
-              "Por favor, ingrese un número de teléfono válido. Ejemplo: +593933543342"
-            );
-            $(phoneInputId).focus();
-            return false;
-          }
-
-          $.ajax({
-            url: "/submit",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ name, phone }),
-            success: function (response) {
-              alert(
-                "Sus datos fueron enviados y un agente se comunicará con usted dentro de 1 a 5 minutos."
-              );
-              $(formId)[0].reset(); // Limpiar el formulario
-              $(".popup-window").hide();
-            },
-            error: function (xhr, status, error) {
-              alert(
-                "Error al enviar los datos. Por favor, inténtelo de nuevo."
-              );
-            },
-          });
-        });
-      }
-      // Manejar el envío de los formularios
-      handleFormSubmit("#dataForm", "#name", "#phone");
-      handleFormSubmit("#dataForm2", "#name2", "#phone2");
-      handleFormSubmit("#dataForm3", "#name3", "#phone3");
-    });
-  </script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      function validateForm(form) {
-        const name = form.querySelector('input[name="name"]');
-        const phone = form.querySelector('input[name="phone"]');
-        const namePattern = /^[A-Za-z\s]+$/;
-        const phonePattern = /^\+593\d{9}$/;
-
-        if (!name.value.trim() || !namePattern.test(name.value.trim())) {
-          alert(
-            "Por favor, ingrese un nombre válido. Solo se permiten letras y espacios."
-          );
-          name.focus();
-          return false;
-        }
-
-        if (!phonePattern.test(phone.value.trim())) {
-          alert(
-            "Por favor, ingrese un número de teléfono válido. Ejemplo: +593933543342"
-          );
-          phone.focus();
-          return false;
-        }
-
-        return true;
-      }
-
-      const form1 = document.getElementById("dataForm");
-      const form2 = document.getElementById("dataForm2");
-
-      form1.addEventListener("submit", function (event) {
-        if (!validateForm(form1)) {
-          event.preventDefault();
-        }
-      });
-
-      form2.addEventListener("submit", function (event) {
-        if (!validateForm(form2)) {
-          event.preventDefault();
-        }
-      });
-    });
-  </script>
+  
+  <script src="/js/script.js"></script>
 
   <!--contador-->
-  <script>
+  <!-- <script>
     // Set the date we're counting down to
     var countDownDate = new Date("Dec 31, 2024 23:59:59").getTime();
 
@@ -653,7 +548,7 @@
     }, 1000);
 
 
-  </script>
+  </script> -->
 </body>
 
 </html>
