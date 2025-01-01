@@ -183,7 +183,7 @@ body {
 }
 
 .cream {
-  background-image: url("../img/head-bg.png");
+  background-image: url("../img/head-bg.webp");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -655,7 +655,7 @@ body {
 /* HEADER */
 
 .header {
-  background: url("../img/head-bg.png");
+  background: url("../img/head-bg.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -728,7 +728,7 @@ body {
 /* .header__image::after {
 	content: "";
 	position: absolute;
-	background: url("../img/head-aft.png");
+	background: url("../img/head-aft.webp");
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
@@ -786,7 +786,7 @@ body {
   top: 0;
   right: 34px;
 
-  background: url("../img/discont.png");
+  background: url("../img/discont.webp");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -986,7 +986,7 @@ body {
 
   .header__product--mob {
     display: flex;
-    background: url("../img/head-bg.png");
+    background: url("../img/head-bg.webp");
     background-repeat: no-repeat;
     background-size: 900px 100%;
     background-position: center;
@@ -1279,10 +1279,6 @@ body {
   width: 100%;
   height: 26px;
 
-  background: url("../img/tick.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
 }
 .section3__right {
   max-width: 360px;

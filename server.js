@@ -1,80 +1,99 @@
 require('dotenv').config(); // Cargar variables de entorno desde .env
 const express = require('express');
+const compression = require('compression');
 const { google } = require('googleapis');
-const bodyParser = require('body-parser');
-const fs = require('fs');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-
-  
-
-// Servir archivos estáticos desde el directorio 'public'
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Ruta para servir el archivo index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Ruta para servir el archivo policy.html
-app.get('/policy.html', (req, res) => {
-    res.sendFile(path.join(__dirname, 'policy.html'));
-});
-
+// Verificar variables de entorno
 const { GOOGLE_CLIENT_EMAIL, GOOGLE_PRIVATE_KEY, SPREADSHEET_ID } = process.env;
-const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
+if (!GOOGLE_CLIENT_EMAIL || !GOOGLE_PRIVATE_KEY || !SPREADSHEET_ID) {
+  throw new Error('Faltan variables de entorno necesarias.');
+}
+
+// Configuración de Google Sheets API
+const auth = new google.auth.GoogleAuth({
+  credentials: {
+    client_email: GOOGLE_CLIENT_EMAIL,
+    private_key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  },
+  scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+});
+const sheets = google.sheets({ version: 'v4', auth });
+
+// Middleware para compresión
+app.use(compression());
+
+// Middleware para procesar datos JSON y formularios
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Servir archivos estáticos con caché
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '1d', // Tiempo de caché (1 día)
+}));
+
+// Rutas para HTML
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+app.get('/policy.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'policy.html'));
+});
+
+// Función de validación
+const validateInput = (name, phone) => {
+  const namePattern = /^[A-Za-z\s]+$/;
+  const phonePattern = /^\+593\d{9}$/;
+  if (!name || !namePattern.test(name)) {
+    return 'Nombre inválido. Solo se permiten letras y espacios.';
+  }
+  if (!phonePattern.test(phone)) {
+    return 'Número de teléfono inválido. Ejemplo: +593933543342';
+  }
+  return null;
+};
 
 // Ruta para manejar el envío del formulario
-app.post('/submit', async (req, res) => {
-    const { name, phone } = req.body;
-    const namePattern = /^[A-Za-z\s]+$/;
-    const phonePattern = /^\+593\d{9}$/;
+app.post('/submit', async (req, res, next) => {
+  const { name, phone } = req.body;
 
-    if (!name || !namePattern.test(name)) {
-        return res.status(400).json({ error: 'Nombre inválido. Solo se permiten letras y espacios.' });
-    }
+  // Validar entrada
+  const validationError = validateInput(name, phone);
+  if (validationError) {
+    return res.status(400).json({ error: validationError });
+  }
 
-    if (!phonePattern.test(phone)) {
-        return res.status(400).json({ error: 'Número de teléfono inválido. Ejemplo: +593933543342' });
-    }
+  const defaultData = 'Crystalin';
+  const timestamp = new Date().toLocaleString('es-EC', { timeZone: 'America/Guayaquil' });
 
-    const defaultData = 'Crystalin';
-    const timestamp = new Date().toLocaleString('es-EC', { timeZone: 'America/Guayaquil' }); // Obtener la fecha y hora actual en formato Ecuador
+  try {
+    // Enviar datos a Google Sheets
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'Cliente!A:D',
+      valueInputOption: 'RAW',
+      resource: {
+        values: [[name, phone, defaultData, timestamp]],
+      },
+    });
 
-    try {
-        const auth = new google.auth.GoogleAuth({
-            credentials: {
-                client_email: GOOGLE_CLIENT_EMAIL,
-                private_key: GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-            },
-            scopes,
-        });
-
-        const sheets = google.sheets({ version: 'v4', auth });
-        await sheets.spreadsheets.values.append({
-            spreadsheetId: SPREADSHEET_ID,
-            range: 'Cliente!A:D', // Actualizar el rango para incluir la nueva columna
-            valueInputOption: 'RAW',
-            resource: {
-                values: [[name, phone, defaultData, timestamp]], // Incluir la fecha y hora en los datos
-            },
-        });
-
-        // Enviar una respuesta JSON indicando éxito
-        res.status(200).json({ message: 'Formulario enviado con éxito' });
-    } catch (error) {
-        console.error('Error al enviar los datos:', error);
-        res.status(500).send('Error al enviar los datos');
-    }
+    res.status(200).json({ message: 'Formulario enviado con éxito' });
+  } catch (error) {
+    console.error('Error al enviar los datos:', error);
+    next(error);
+  }
 });
 
+// Middleware para manejo de errores
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Error interno del servidor. Por favor, inténtelo más tarde.' });
+});
 
+// Iniciar servidor
 app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
