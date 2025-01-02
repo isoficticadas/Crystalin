@@ -42,6 +42,9 @@ app.get('/', (req, res) => {
 app.get('/policy.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'policy.html'));
 });
+app.get('/gracias.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'gracias.html'));
+});
 
 // Función de validación
 const validateInput = (name, phone) => {
@@ -80,7 +83,8 @@ app.post('/submit', async (req, res, next) => {
       },
     });
 
-    res.status(200).json({ message: 'Formulario enviado con éxito' });
+    // Redirigir a gracias.html tras el envío exitoso
+    res.redirect('/gracias.html');
   } catch (error) {
     console.error('Error al enviar los datos:', error);
     next(error);
